@@ -38,6 +38,83 @@ produce_dictionary = {'Potatoes': [0.86, 12219, 10508],
                       'Brussels sprouts': [1.65, 11947, 19713],
                       'Kale': [5.02, 12293, 61711],
                       'Bok choy': [1.42, 11565, 16422]}
+'''
+Using this start file, use the dictionary to create a data frame with the produce names as rows and columns named - "Cost Per Pound", "Quantity Sold" and "Total Sale". 
+NOTE: Please include the questions as part of your print statements so it is easier to grade.
+
+Using Pandas Dataframe methods, display the following information:
+'''
+import pandas as pd
+import numpy as np
+
+df1 = pd.DataFrame(produce_dictionary)
+#new column names
+new_col = ["Cost Per Pound", "Quantity Sold", "Total Sale"]
+df1.index =[new_col]
+#switching columns and rows
+df1 = df1.T
+print('create a data frame with the produce names as rows and columns named')
+print(df1)
+'''
+1. Produce that had the highest and lowest sales in total sales (both name of produce and value)
+'''
+lowest_sales = df1["Total Sale"].min()
+highest_sales = df1["Total Sale"].max()
+print()
+print("Produce that had the highest and lowest sales in total sales (both name of produce and value)")
+print(lowest_sales)
+print(highest_sales)
+#print(df1[df1.iloc[:,0].min()])
 
 
+'''
+2. Using 'loc', display the quantity and total sales for 'Orange' and 'Beets' (together)
+'''
+
+print("Using 'loc', display the quantity and total sales for 'Orange' and 'Beets' (together)")
+orange_and_beets_quant = df1.loc[['Orange', 'Beets'],'Quantity Sold'].sum()
+orange_and_beets_sales = df1.loc[['Orange', 'Beets'],'Total Sale'].sum()
+print(orange_and_beets_quant)
+print(orange_and_beets_sales)
+
+'''
+3. Using 'loc', display the total sales for 'Apples' through 'Lettuce'
+'''
+print()
+print("Using 'loc', display the total sales for 'Apples' through 'Lettuce'")
+Apples_thru_letuce = df1.loc['Apples': 'Lettuce', 'Total Sale']
+print(Apples_thru_letuce)
+
+'''
+4. Using 'at', update the quantity sold for Apricots to 11,955 and total sales to 44,353.05
+'''
+print()
+print("Using 'at', update the quantity sold for Apricots to 11,955 and total sales to 44,353.05")
+df1.at["Apricots","Quantity Sold"] =11955
+df1.at["Apricots","Total Sale"] =44353.05
+print(df1)
+
+'''
+5. hat is the average quantity sold across all products? (print out ONLY quantity sold)
+'''
+print()
+print("What is the average quantity sold across all products? (print out ONLY quantity sold)")
+avg_quant = df1.loc[:,'Quantity Sold'].mean()
+print(avg_quant)
+
+
+'''
+6. Create a new dataframe for only those produce that have sold between 11,500 to 12,000 (quantity)
+'''
+print()
+print("Create a new dataframe for only those produce that have sold between 11,500 to 12,000 (quantity)")
+df2 = df1[(df1.iloc[:,1]>= 11500) & (df1.iloc[:,1] <= 12000)]
+print(df2)
+''''
+7. What is the total sales for the products in the above new dataframe? (print out ONLY total sales)
+'''
+print()
+print("What is the total sales for the products in the above new dataframe? (print out ONLY total sales)")
+total_sales_df2 = df2.loc[:,'Total Sale'].sum()
+print(total_sales_df2)
 
